@@ -5,8 +5,11 @@ import Filter from '../Filter';
 
 import { useSelector } from 'react-redux';
 import { getContactsItems } from 'redux/contactSlice';
+import { useGetContactsQuery } from 'redux/contact';
 
 export const App = () => {
+  const { data } = useGetContactsQuery();
+  console.log(data);
   const contacts = useSelector(getContactsItems);
 
   return (
