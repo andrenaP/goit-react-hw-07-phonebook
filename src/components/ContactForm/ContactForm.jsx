@@ -18,7 +18,7 @@ export default function ContactForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ name: name, number: number });
+    onSubmit({ name: name, phone: number });
     reset();
     event.target.reset();
   };
