@@ -1,14 +1,16 @@
 .ListOfNames {
-  display: grid;
-  gap: 10px;
-  flex-direction: column;
+  display: flex;
+  gap: 30px;
   background-color: aliceblue;
-  width: 200px;
+  max-width: 800px;
   padding: 10px;
+  flex-wrap: wrap;
 }
 .ListOfNames li {
   display: flex;
   gap: 10px;
   width: 200px;
+  height: 100px;
   justify-content: space-around;
+  flex-direction: column;
 }

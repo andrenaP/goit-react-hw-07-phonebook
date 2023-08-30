@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './ContactForm.css';
 import ContactAnyInput from '../ContactAnyInput';
-import { useDispatch, useSelector } from 'react-redux';
-import { add, getContactsItems } from 'redux/contactSlice';
+
+import { useAddContactMutation, useFetchContactsQuery } from 'redux/contact';
 
 export default function ContactForm() {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContactsItems);
+  const { data } = useFetchContactsQuery();
+  const contacts = data;
+  const [createContact] = useAddContactMutation();
 
   const [name, setname] = useState('');
   const [number, setnumber] = useState('');
@@ -35,8 +36,7 @@ export default function ContactForm() {
         return 0;
       }
     }
-
-    dispatch(add(contactData));
+    createContact(contactData);
   };
 
   const reset = () => {

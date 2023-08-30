@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import './Filter.css';
 import ContactAnyInput from '../ContactAnyInput';
 import { filtering } from 'redux/filterSlice';
@@ -21,7 +19,3 @@ const Filter = () => {
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-};

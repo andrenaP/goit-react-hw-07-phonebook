@@ -3,21 +3,17 @@ import ContactList from '../ContactList';
 import Section from '../Section';
 import Filter from '../Filter';
 
-import { useSelector } from 'react-redux';
-import { getContactsItems } from 'redux/contactSlice';
-import { useGetContactsQuery } from 'redux/contact';
+import { useFetchContactsQuery } from 'redux/contact';
 
 export const App = () => {
-  const { data } = useGetContactsQuery();
-  console.log(data);
-  const contacts = useSelector(getContactsItems);
+  const { data } = useFetchContactsQuery();
 
   return (
     <div>
       <Section title="Phonebook">
         <ContactForm />
       </Section>
-      {contacts.length !== 0 ? (
+      {data ? (
         <Section title="Contacts">
           <Filter />
           <ContactList />
