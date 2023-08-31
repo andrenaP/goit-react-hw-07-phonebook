@@ -4,12 +4,11 @@ import { useSelector } from 'react-redux';
 import ContactItem from 'components/ContactItem/ContactItem';
 
 import { getfilterValue } from 'redux/filterSlice';
-import { useFetchContactsQuery, useDeleteContactMutation } from 'redux/contact';
+import { useFetchContactsQuery } from 'redux/contact';
 import { getVisibleContacts } from 'redux/contact-selector';
 
 const ContactList = () => {
   const { data, isFetching, error } = useFetchContactsQuery();
-  const [deleteContact] = useDeleteContactMutation();
 
   const filter = useSelector(getfilterValue);
   const visibleContacts = getVisibleContacts({ filter, data });
