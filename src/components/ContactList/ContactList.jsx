@@ -1,37 +1,34 @@
 import PropTypes from 'prop-types';
 import './ContactList.css';
 import { useSelector } from 'react-redux';
+import ContactItem from 'components/ContactItem/ContactItem';
 
 import { getfilterValue } from 'redux/filterSlice';
 import { useFetchContactsQuery, useDeleteContactMutation } from 'redux/contact';
+import { getVisibleContacts } from 'redux/contact-selector';
 
 const ContactList = () => {
-  const { data } = useFetchContactsQuery();
+  const { data, isFetching, error } = useFetchContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
   const filter = useSelector(getfilterValue);
-  const visibleContacts = data.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-  if (visibleContacts.length === 0) return 'Nothing found';
+  const visibleContacts = getVisibleContacts({ filter, data });
   return (
-    <ul className="ListOfNames">
-      {visibleContacts.map(({ name, phone, id }) => {
-        return (
-          <li key={id}>
-            <span className="name">{name}</span>
-            <span className="number">{phone}</span>
-            <button
-              onClick={() => {
-                deleteContact(id);
-              }}
-            >
-              Delete
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {isFetching ? 'Loading...' : 'Contacts table'}
+      <ul className="ListOfNames">
+        {error}
+
+        {data && (
+          <>
+            {visibleContacts.length === 0 && 'Nothing found'}
+            {visibleContacts.map(contacts => {
+              return <ContactItem key={contacts.id} {...contacts} />;
+            })}
+          </>
+        )}
+      </ul>
+    </>
   );
 };
 
